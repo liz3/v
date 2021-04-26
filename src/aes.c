@@ -298,7 +298,6 @@ enum V_ENCRYPT_RESULT v_aes_cbc_encrypt_iv(v_aes_handle* handle, uint8_t* data,
         v_copy(lastCipherBlock, result, i, 0, 16);
     }
     free(block);
-    free(lastCipherBlock);
     return SUCCESS;
 }
 enum V_ENCRYPT_RESULT v_aes_cbc_decrypt_iv(v_aes_handle* handle, uint8_t* data,
@@ -321,7 +320,6 @@ enum V_ENCRYPT_RESULT v_aes_cbc_decrypt_iv(v_aes_handle* handle, uint8_t* data,
         v_copy(data, lastCipherBlock, 0, i, 16);
     }
     free(block);
-    free(lastCipherBlock);
     return SUCCESS;
 }
 enum V_ENCRYPT_RESULT v_aes_cbc_decrypt(v_aes_handle* handle, uint8_t* data,
