@@ -21,6 +21,9 @@ uint32_t v_swap32(uint32_t val);
 
 size_t v_strlen(char* data);
 
+uint8_t* v_safe_allocate(size_t size);
+
+
 #ifdef __cplusplus
 }
 #endif

@@ -332,7 +332,7 @@ enum V_ENCRYPT_RESULT v_aes_cbc_decrypt_iv(v_aes_handle* handle, uint8_t* data,
 }
 enum V_ENCRYPT_RESULT v_aes_cbc_decrypt(v_aes_handle* handle, uint8_t* data,
                                         uint32_t dataLen, uint8_t* result) {
-    uint8_t* iv = malloc(sizeof(uint8_t) * 16);
+    uint8_t* iv = v_safe_allocate(sizeof(uint8_t) * 16);
     enum V_ENCRYPT_RESULT r =
         v_aes_cbc_decrypt_iv(handle, data, dataLen, result, iv);
     free(iv);
@@ -341,7 +341,8 @@ enum V_ENCRYPT_RESULT v_aes_cbc_decrypt(v_aes_handle* handle, uint8_t* data,
 }
 enum V_ENCRYPT_RESULT v_aes_cbc_encrypt(v_aes_handle* handle, uint8_t* data,
                                         uint32_t dataLen, uint8_t* result) {
-    uint8_t* iv = malloc(sizeof(uint8_t) * 16);
+    uint8_t* iv = v_safe_allocate(sizeof(uint8_t) * 16);
+
     enum V_ENCRYPT_RESULT r =
         v_aes_cbc_encrypt_iv(handle, data, dataLen, result, iv);
     free(iv);
@@ -411,7 +412,7 @@ enum V_ENCRYPT_RESULT v_aes_cfb_decrypt_iv(v_aes_handle* handle, uint8_t* data,
 
 enum V_ENCRYPT_RESULT v_aes_cfb_encrypt(v_aes_handle* handle, uint8_t* data,
                                         uint32_t dataLen, uint8_t* result) {
-    uint8_t* iv = malloc(sizeof(uint8_t) * 16);
+    uint8_t* iv = v_safe_allocate(sizeof(uint8_t) * 16);
     enum V_ENCRYPT_RESULT res =
         v_aes_cfb_encrypt_iv(handle, data, dataLen, result, iv, 1);
     free(iv);
@@ -420,7 +421,7 @@ enum V_ENCRYPT_RESULT v_aes_cfb_encrypt(v_aes_handle* handle, uint8_t* data,
 }
 enum V_ENCRYPT_RESULT v_aes_cfb_decrypt(v_aes_handle* handle, uint8_t* data,
                                         uint32_t dataLen, uint8_t* result) {
-    uint8_t* iv = malloc(sizeof(uint8_t) * 16);
+    uint8_t* iv = v_safe_allocate(sizeof(uint8_t) * 16);
     enum V_ENCRYPT_RESULT res =
         v_aes_cfb_decrypt_iv(handle, data, dataLen, result, iv, 1);
     free(iv);
@@ -450,7 +451,7 @@ enum V_ENCRYPT_RESULT v_aes_ofb_perform_iv(v_aes_handle* handle, uint8_t* data,
 
 enum V_ENCRYPT_RESULT v_aes_ofb_perform(v_aes_handle* handle, uint8_t* data,
                                         uint32_t dataLen, uint8_t* result) {
-    uint8_t* iv = malloc(sizeof(uint8_t) * 16);
+    uint8_t* iv = v_safe_allocate(sizeof(uint8_t) * 16);
     enum V_ENCRYPT_RESULT res =
         v_aes_ofb_perform_iv(handle, data, dataLen, result, iv);
     free(iv);

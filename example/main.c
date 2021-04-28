@@ -15,8 +15,8 @@ int main() {
     out[16] = '\0';
     out2[16] = '\0';
     enum V_ENCRYPT_RESULT res =
-        v_aes_encrypt_implicit(key, data, strlen(data), 32, out, CBC);
-    res = v_aes_decrypt_implicit(key, out, strlen(data), 32, out2, CBC);
+        v_aes_encrypt_implicit(key, data, strlen(data), 32, out, CFB);
+    res = v_aes_decrypt_implicit(key, out, strlen(data), 32, out2, CFB);
  //   char * encrypted = v_easy_encrypt_c("SupersecretKey", data);
  //   char * decrypted = v_easy_decrypt_c("SupersecretKey", encrypted);
     printf("%s\n%s\n", out, out2);
