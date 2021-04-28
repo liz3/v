@@ -1,13 +1,15 @@
 #ifndef V_AES_H
 #define V_AES_H
 
-#ifdef __cplusplus 
+#ifdef __cplusplus
 extern "C" {
 #endif
 
 #include <stdio.h>
 #include <stdlib.h>
-
+#ifdef __linux__
+#include <stdint.h>
+#endif
 #include "v_types.h"
 #include "v_util.h"
 

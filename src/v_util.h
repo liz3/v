@@ -1,11 +1,14 @@
 #ifndef V_V_UTIL_H
 #define V_V_UTIL_H
-#ifdef __cplusplus 
+#ifdef __cplusplus
 extern "C" {
 #endif
 
 #include "v_types.h"
 #include <stdlib.h>
+#ifdef __linux__
+#include <stdint.h>
+#endif
 
 const char* v_get_error_readable(enum V_ENCRYPT_RESULT value);
 
