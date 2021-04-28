@@ -1,7 +1,7 @@
 
 #ifndef V_V_TYPES_H
 #define V_V_TYPES_H
-#ifdef __cplusplus 
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -14,7 +14,9 @@ enum V_ENCRYPT_RESULT {
     DATA_NULL,
     ECB_ALIGMENT_ISSUE,
     INVALID_VECTOR_SIZE,
-    INVALID_SEGMENT_MISSMATCH
+    INVALID_SEGMENT_MISSMATCH,
+    INVALID_MODE,
+    INVALID_HANDLE
 };
 
 

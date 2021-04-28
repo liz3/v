@@ -13,6 +13,14 @@ uint8_t _v_aes_getRound_amount(uint16_t keyLen) {
     }
     return 0;
 }
+void v_aes_freeHandle(v_aes_handle* handle) {
+  for(uint16_t i = 0; i <= handle->rounds; i++) {
+    free(handle->encryptionKeys[i]);
+    free(handle->decryptionKeys[i]);
+  }
+  free(handle->encryptionKeys);
+  free(handle->decryptionKeys);
+}
 v_aes_handle* v_aes_setupHandle(uint8_t* key, uint16_t keyLen) {
     v_aes_handle* handle = malloc(sizeof(v_aes_handle));
 

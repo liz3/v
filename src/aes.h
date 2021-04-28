@@ -33,6 +33,7 @@ typedef struct v_aes_counter {
 } v_aes_counter;
 
 v_aes_handle* v_aes_setupHandle(uint8_t* key, uint16_t keyLen);
+void v_aes_freeHandle(v_aes_handle* handle);
 v_aes_counter* v_aes_setupCounter(uint32_t initialValue);
 void v_aes_setCounterBytes(v_aes_counter* handle, uint8_t* value);
 void v_aes_counter_increment(v_aes_counter* handle);

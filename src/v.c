@@ -23,38 +23,21 @@ enum V_ENCRYPT_RESULT v_aes_encrypt_implicit(
     }
 
     v_aes_handle* h = v_aes_setupHandle(key, keyLen);
-
+    enum V_ENCRYPT_RESULT result;
     if (operation_mode == CTR) {
-        enum V_ENCRYPT_RESULT result = v_aes_ctr_perform(h, data, len, out, 1);
-        if (result != SUCCESS) {
-            free(h);
-            return result;
-        }
+      result = v_aes_ctr_perform(h, data, len, out, 1);
     } else if (operation_mode == ECB) {
-        enum V_ENCRYPT_RESULT result = v_aes_ecb_encrypt(h, data, len, out);
-        if (result != SUCCESS) {
-            free(h);
-            return result;
-        }
+      result = v_aes_ecb_encrypt(h, data, len, out);
     } else if (operation_mode == CBC) {
-        enum V_ENCRYPT_RESULT result = v_aes_cbc_encrypt(h, data, len, out);
-        if (result != SUCCESS) {
-            free(h);
-            return result;
-        }
+      result = v_aes_cbc_encrypt(h, data, len, out);
     } else if (operation_mode == CFB) {
-        enum V_ENCRYPT_RESULT result = v_aes_cfb_encrypt(h, data, len, out);
-        if (result != SUCCESS) {
-            free(h);
-            return result;
-        }
+      result = v_aes_cfb_encrypt(h, data, len, out);
     } else if (operation_mode == OFB) {
-        enum V_ENCRYPT_RESULT result = v_aes_ofb_perform(h, data, len, out);
-        if (result != SUCCESS) {
-            free(h);
-            return result;
-        }
+      result = v_aes_ofb_perform(h, data, len, out);
+    } else {
+      result = INVALID_MODE;
     }
+    v_aes_freeHandle(h);
     free(h);
     return SUCCESS;
 }
@@ -81,39 +64,26 @@ enum V_ENCRYPT_RESULT v_aes_decrypt_implicit(
     }
 
     v_aes_handle* h = v_aes_setupHandle(key, keyLen);
-    if (operation_mode == CTR) {
-        enum V_ENCRYPT_RESULT result = v_aes_ctr_perform(h, data, len, out, 1);
-        if (result != SUCCESS) {
-            free(h);
-            return result;
-        }
-    } else if (operation_mode == ECB) {
-        enum V_ENCRYPT_RESULT result = v_aes_ecb_decrypt(h, data, len, out);
-        if (result != SUCCESS) {
-            free(h);
-            return result;
-        }
-    } else if (operation_mode == CBC) {
-        enum V_ENCRYPT_RESULT result = v_aes_cbc_decrypt(h, data, len, out);
-        if (result != SUCCESS) {
-            free(h);
-            return result;
-        }
-    } else if (operation_mode == CFB) {
-        enum V_ENCRYPT_RESULT result = v_aes_cfb_decrypt(h, data, len, out);
-        if (result != SUCCESS) {
-            free(h);
-            return result;
-        }
-    } else if (operation_mode == OFB) {
-        enum V_ENCRYPT_RESULT result = v_aes_ofb_perform(h, data, len, out);
-        if (result != SUCCESS) {
-            free(h);
-            return result;
-        }
+    if(h == 0) {
+      return INVALID_HANDLE;
     }
+    enum V_ENCRYPT_RESULT result;
+    if (operation_mode == CTR) {
+        result = v_aes_ctr_perform(h, data, len, out, 1);
+    } else if (operation_mode == ECB) {
+        result = v_aes_ecb_decrypt(h, data, len, out);
+    } else if (operation_mode == CBC) {
+        result = v_aes_cbc_decrypt(h, data, len, out);
+    } else if (operation_mode == CFB) {
+        result = v_aes_cfb_decrypt(h, data, len, out);
+    } else if (operation_mode == OFB) {
+        result = v_aes_ofb_perform(h, data, len, out);
+    } else {
+      result = INVALID_MODE;
+    }
+    v_aes_freeHandle(h);
     free(h);
-    return SUCCESS;
+    return result;
 }
 
 char* v_easy_encrypt_c(char* key, char* data) {
@@ -123,7 +93,7 @@ char* v_easy_encrypt_c(char* key, char* data) {
     size_t keyLen = v_strlen(key);
     size_t keySize = 0;
     uint8_t* keyP = 0;
-    if (keyLen == 16 || key == 24 || keyLen == 32) {
+    if (keyLen == 16 || keyLen == 24 || keyLen == 32) {
         keySize = keyLen;
         keyP = malloc(sizeof(uint8_t) * keySize);
         v_copy(key, keyP, 0, 0, keySize);
