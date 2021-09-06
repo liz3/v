@@ -25,7 +25,7 @@ enum V_ENCRYPT_RESULT v_aes_encrypt_implicit(
     v_aes_handle* h = v_aes_setupHandle(key, keyLen);
     enum V_ENCRYPT_RESULT result;
     if (operation_mode == CTR) {
-      result = v_aes_ctr_perform(h, data, len, out, 1);
+      result = v_aes_ctr_perform(h, data, len, out, 5);
     } else if (operation_mode == ECB) {
       result = v_aes_ecb_encrypt(h, data, len, out);
     } else if (operation_mode == CBC) {
@@ -69,7 +69,7 @@ enum V_ENCRYPT_RESULT v_aes_decrypt_implicit(
     }
     enum V_ENCRYPT_RESULT result;
     if (operation_mode == CTR) {
-        result = v_aes_ctr_perform(h, data, len, out, 1);
+        result = v_aes_ctr_perform(h, data, len, out, 5);
     } else if (operation_mode == ECB) {
         result = v_aes_ecb_decrypt(h, data, len, out);
     } else if (operation_mode == CBC) {

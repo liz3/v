@@ -37,10 +37,7 @@ uint32_t v_swap32(uint32_t val) {
 }
 
 uint8_t* v_safe_allocate(size_t size) {
-  uint8_t* p = malloc(size);
-  for(size_t i = 0; i < size; i++) {
-    p[i] = 0;
-  }
+  uint8_t* p = calloc(size, sizeof(uint8_t));
   return p;
 }
 
